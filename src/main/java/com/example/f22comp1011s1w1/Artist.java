@@ -65,6 +65,6 @@ public class Artist {
 
     public String toString()
     {
-        return String.format("%s %s - age: %d years",firstName, lastName, Period.between(birthday,LocalDate.now()).getYears());
+        return String.format("%s %s",firstName, lastName);
     }
 }

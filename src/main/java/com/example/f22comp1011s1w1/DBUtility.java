@@ -59,7 +59,7 @@ public class DBUtility {
         int songID = -1;
         ResultSet resultSet = null;
 
-        String sql = "INSERT INTO songs (name, genre, length, artistID) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO songs (name, genre, length, releaseYear, artistID) VALUES (?,?,?,?,?);";
 
         //This is called a "try with resources" block.  It will autoclose anything in the ()
         try(
@@ -71,7 +71,8 @@ public class DBUtility {
             ps.setString(1, song.getName());
             ps.setString(2, song.getGenre());
             ps.setInt(3, song.getLength());
-            ps.setInt(4, song.getArtist().getArtistID());
+            ps.setInt(4, song.getReleaseYear());
+            ps.setInt(5, song.getArtist().getArtistID());
 
             //run the command into the DB
             ps.executeUpdate();
@@ -93,4 +94,48 @@ public class DBUtility {
         return songID;
     }
 
+    /**
+     * This method will return all the songs in the Database
+     */
+    public static ArrayList<Song> getSongsFromDB()
+    {
+        ArrayList<Song> songs = new ArrayList();
+
+        //query the DB to get a list of Artists
+        String sql = "SELECT * " +
+                     "FROM songs INNER JOIN artists ON artists.artistID = songs.artistID;";
+
+        //the try() is called "try with resources"
+        try(
+                Connection conn = DriverManager.getConnection(connectUrl,user,password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        )
+        {
+            //loop over the objects returned and create an Song object
+            while (resultSet.next())
+            {
+                //create the Artist object
+                int artistID = resultSet.getInt("artistID");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                LocalDate birthday = resultSet.getDate("birthday").toLocalDate();
+                Artist artist = new Artist(artistID, firstName,lastName,birthday);
+
+                //create the Song object
+                int songID = resultSet.getInt("songID");
+                String name = resultSet.getString("name");
+                String genre = resultSet.getString("genre");
+                int length = resultSet.getInt("length");
+                int releaseYear = resultSet.getInt("releaseYear");
+
+                Song song = new Song(songID, name,genre,length,releaseYear,artist);
+                songs.add(song);
+            }
+        }
+        catch (Exception e)
+        {e.printStackTrace();}
+
+        return songs;
+    }
 }

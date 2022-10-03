@@ -1,11 +1,13 @@
 package com.example.f22comp1011s1w1;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Song {
+    private int songID;
     private String name, genre;
     private int length, releaseYear;
     private Artist artist;
@@ -16,6 +18,26 @@ public class Song {
         setLength(length);
         setReleaseYear(releaseYear);
         setArtist(artist);
+    }
+
+    /**
+     * This is an "overloaded" constructor.  It references the other constructor, but
+     * also accepts/sets a songID.
+     */
+    public Song(int songID, String name, String genre, int length, int releaseYear, Artist artist) {
+        this(name,genre,length,releaseYear,artist);
+        setSongID(songID);
+    }
+
+    public int getSongID() {
+        return songID;
+    }
+
+    public void setSongID(int songID) {
+        if (songID>0)
+            this.songID = songID;
+        else
+            throw new IllegalArgumentException("songID must be greater than 0");
     }
 
     public String getName() {
@@ -106,5 +128,12 @@ public class Song {
     public String toString()
     {
         return String.format("%s - %s ", artist, name);
+    }
+
+    public String getRandomString()
+    {
+        List<String> strings = Arrays.asList("Help","What the..?","crazy");
+        SecureRandom rng = new SecureRandom();
+        return strings.get(rng.nextInt(0,3));
     }
 }
