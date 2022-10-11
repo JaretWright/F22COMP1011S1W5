@@ -1,6 +1,7 @@
 package com.example.f22comp1011s1w1;
 
 import javafx.scene.Camera;
+import javafx.scene.chart.XYChart;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -137,5 +138,36 @@ public class DBUtility {
         {e.printStackTrace();}
 
         return songs;
+    }
+
+    public static XYChart.Series<String,Integer> getNumOfSongsByArtist()
+    {
+
+        XYChart.Series<String,Integer> songsByArtist = new XYChart.Series<>();
+
+        //query the DB to get a list of Artists
+        String sql = "SELECT CONCAT(firstName, ' ', lastName) AS artist, COUNT(songID) AS songCount " +
+                "FROM artists INNER JOIN songs ON artists.artistID = songs.artistID " +
+                "GROUP BY artists.artistID;";
+
+        //the try() is called "try with resources"
+        try(
+                Connection conn = DriverManager.getConnection(connectUrl,user,password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        )
+        {
+            //loop over the ResultSet returned and add the key-value pairs
+            while (resultSet.next())
+            {
+                String artist = resultSet.getString("artist");
+                int numOfSongs = resultSet.getInt("songCount");
+                songsByArtist.getData().add(new XYChart.Data<>(artist,numOfSongs));
+            }
+        }
+        catch (Exception e)
+        {e.printStackTrace();}
+
+        return songsByArtist;
     }
 }

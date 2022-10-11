@@ -30,10 +30,7 @@ public class ChartViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        XYChart.Series<String,Integer> songsByArtist = new XYChart.Series<>();
-        songsByArtist.getData().add(new XYChart.Data<>("Bruno Mars",30));
-        songsByArtist.getData().add(new XYChart.Data<>("Rhihana",55));
-        songsByArtist.getData().add(new XYChart.Data<>("Jaret",65));
-        barChart.getData().addAll(songsByArtist);
+        barChart.setLegendVisible(false);
+        barChart.getData().addAll(DBUtility.getNumOfSongsByArtist());
     }
 }

@@ -42,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../marking/F22FakeDataGenerator" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -81,7 +81,10 @@
       <workItem from="1664205998489" duration="187000" />
       <workItem from="1664206357825" duration="9023000" />
       <workItem from="1664300728263" duration="13000" />
-      <workItem from="1664801202416" duration="9874000" />
+      <workItem from="1664801202416" duration="10879000" />
+      <workItem from="1664907100064" duration="7000" />
+      <workItem from="1665481588708" duration="321000" />
+      <workItem from="1665508728238" duration="2953000" />
     </task>
     <servers />
   </component>
@@ -94,6 +97,15 @@
     </ignored-roots>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/f22comp1011s1w1/ChartViewController.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="artists" />
